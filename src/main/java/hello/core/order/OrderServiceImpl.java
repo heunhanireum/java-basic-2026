@@ -17,8 +17,31 @@ public class OrderServiceImpl implements OrderService{
 //    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
+//    private MemberRepository memberRepository;
+//    private DiscountPolicy discountPolicy;
+
+    /* field 주입 -> 쓰지 말자
+    @Autowired private MemberRepository memberRepository;
+    @Autowired private DiscountPolicy discountPolicy;
+     */
+
+/*
+    //setter 주입: bean 등록 -> 의존관계 주입
+    @Autowired
+    public void setMemberRepository(MemberRepository memberRepository) {
+        System.out.println("memberRepository = " + memberRepository);
+        this.memberRepository = memberRepository;
+    }
 
     @Autowired
+    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+        System.out.println("discountPolicy = " + discountPolicy);
+        this.discountPolicy = discountPolicy;
+    }
+*/
+
+    //생성자 주입: bean을 등록하면서 의존관계 주입도 같이 진행됨
+    @Autowired //안하는 추세
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
