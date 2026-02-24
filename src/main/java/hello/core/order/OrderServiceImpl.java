@@ -1,11 +1,13 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +21,14 @@ public class OrderServiceImpl implements OrderService{
     private final DiscountPolicy discountPolicy;
 //    private MemberRepository memberRepository;
 //    private DiscountPolicy discountPolicy;
+
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
+
+
 
     /* field 주입 -> 쓰지 말자
     @Autowired private MemberRepository memberRepository;
@@ -41,11 +51,13 @@ public class OrderServiceImpl implements OrderService{
 */
 
     //생성자 주입: bean을 등록하면서 의존관계 주입도 같이 진행됨
+/*
     @Autowired //안하는 추세
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
+*/
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
